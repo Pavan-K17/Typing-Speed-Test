@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Test</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="favicon (5).ico" rel="shortcut icon" type="image/x-icon" />
+    
+
+</head>
+<body>
+    <div class="full">
+     <h1>LIGHTNING SPEED..⚡</h1>
+     <div class="container">
+        
+        <div id="sentenceContainer" class="text-to-type"></div>
+        <textarea id="typingArea" class="typing-area" rows="5" placeholder="Start typing here..."></textarea>
+        <button class="submit-btn" onclick="submitText()">Submit</button>
+
+        <div id="resultContainer" class="result-container">
+            <div class="result-item" id="speedResult">Typing Speed: 0 words per minute</div>
+            <div class="result-item" id="accuracyResult">Accuracy: 0%</div>
+        </div>
+
+     </div>
+    </div>
+
+
+    <script>
+        // Array of sentences
+        const sentences = [
+            "The stock market is a complex and often intimidating arena for those who are new to investing. However, understanding the basics of how it works can empower you to make informed decisions and potentially grow your wealth over time. At its core, the stock market is a marketplace where shares of publicly traded companies are bought and sold.",
+            "Teamwork requires a degree of flexibility and adaptability. The ability to adjust to changing circumstances, embrace new ideas, and overcome unexpected obstacles is essential for any team to thrive. When faced with challenges, team members must be willing to work together to find solutions, adapt their strategies, and learn from their mistakes.",
+            "Well-formatted documents reflect professionalism and attention to detail. Use appropriate fonts, margins, and line spacing for readability. Create clear headings and subheadings to organize information. Utilize lists and tables to present data effectively.",
+            "Typing has a rich history that spans over a century. The invention of the typewriter revolutionized written communication, replacing handwritten documents with neatly typed pages. Early typists had to master the art of using mechanical keys and carefully inserting paper into the machine. The introduction of electric typewriters in the mid-20th century made typing easier and faster, with features like automatic carriage return and error correction.",
+            "A small-town coffee shop was struggling to survive. Sales were down 30%, and the owner, Emily, was on the verge of closing. Determined to save her business, she reached out to a local marketing consultant. They implemented a loyalty program, introduced new seasonal drinks, and revamped the shop's social media presence",
+            "When Tom's grandmother passed away, he inherited $50,000. Unsure of what to do with the money, he sought advice from a financial advisor. Together, they devised a plan. Tom invested 60% of the money in a diversified portfolio of stocks and bonds, put 20% into a high-yield savings account for emergencies, and used the remaining 20% to pay off his student loan debt.",
+            "As CEO of a promising tech startup, Anya was determined to secure a $1 million investment to fuel the company's growth. She spent months preparing for the pitch meeting, refining her business plan, and practicing her presentation. On the day of the meeting, she faced a panel of seasoned investors, ready to scrutinize every detail.",
+            "Typists often transcribe or summarize meetings or lectures. Develop effective note-taking strategies to capture key points quickly. Use abbreviations or symbols to save time. Organize your notes with headings and bullet points for clarity.",
+            "Typists often transcribe or summarize meetings or lectures. Develop effective note-taking strategies to capture key points quickly. Use abbreviations or symbols to save time. Organize your notes with headings and bullet points for clarity.",
+            "Don't settle for mediocrity. Step outside the familiar confines of your comfort zone and dare to explore the uncharted territories of your potential. Growth, both personally and professionally, often happens when we push ourselves beyond what we think is possible."
+        ];
+
+        // Select a random sentence
+        const randomSentence = sentences[Math.floor(Math.random() * sentences.length)];
+
+        // Display the random sentence in the container
+        document.addEventListener("DOMContentLoaded", () => {
+            const sentenceContainer = document.getElementById("sentenceContainer");
+            sentenceContainer.textContent = randomSentence;
+        });
+
+        let startTime;
+
+        // Start timing when the user starts typing
+        document.getElementById('typingArea').addEventListener('focus', () => {
+            if (!startTime) {
+                startTime = Date.now();
+            }
+        });
+
+        // Function to calculate typing speed and accuracy
+        function submitText() {
+            const textTyped = document.getElementById('typingArea').value;
+            const endTime = Date.now();
+            const timeElapsed = (endTime - startTime) / 1000 / 60; // Time in minutes
+
+            // Calculate words per minute
+            const wordsTyped = textTyped.trim().split(/\s+/).length;
+            const wordsPerMinute = Math.round(wordsTyped / timeElapsed);
+
+            // Calculate accuracy
+            const originalWords = randomSentence.trim().split(/\s+/);
+            const typedWords = textTyped.trim().split(/\s+/);
+            let correctWords = 0;
+
+            originalWords.forEach((word, index) => {
+                if (typedWords[index] === word) {
+                    correctWords++;
+                }
+            });
+
+            const accuracy = Math.round((correctWords / originalWords.length) * 100);
+
+            // Display the results
+            document.getElementById('speedResult').innerText = `Typing Speed: ${wordsPerMinute} words per minute`;
+            document.getElementById('accuracyResult').innerText = `Accuracy: ${accuracy}%`;
+            document.getElementById('resultContainer').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
+
+
+
